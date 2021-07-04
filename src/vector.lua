@@ -19,6 +19,11 @@ function Vector:init(x, y)
     self.y = y
 end
 
+function Vector:add(other)
+    self.x = self.x + other.x
+    self.y = self.y + other.y
+end
+
 function Vector:opposes(other)
     if other.x == 0 and other.y == 0 then
         return false
