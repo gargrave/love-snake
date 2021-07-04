@@ -1,3 +1,4 @@
+local Input = require('src.input')
 local Vector = require('src.vector')
 
 local Move = {
@@ -30,8 +31,25 @@ function Player:init()
 end
 
 function Player:update(dt)
-    -- TODO: watch input for direction changes
-    -- TODO: attempt to move in last direction
+    -- change the next move direction based on input,
+    -- but prevent moving in the opposite of the current direction
+    local inputMoveDir = Vector.clone(self.moveDir)
+    if Input.wasPressed('a') then
+        inputMoveDir = Move.Left
+    end
+    if Input.wasPressed('d') then
+        inputMoveDir = Move.Right
+    end
+    if Input.wasPressed('w') then
+        inputMoveDir = Move.Up
+    end
+    if Input.wasPressed('s') then
+        inputMoveDir = Move.Down
+    end
+    if not inputMoveDir:opposes(self.moveDir) then
+        self.moveDir = inputMoveDir
+    end
+
     self.lastMove = self.lastMove + dt
     while self.lastMove >= moveIncrement do
         self.lastMove = self.lastMove - moveIncrement
