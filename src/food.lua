@@ -8,6 +8,10 @@ function Food.new()
 end
 
 function Food:init()
+    self.body = love.physics.newBody(world, x, y, 'static')
+    self.shape = love.physics.newRectangleShape(50, 20)
+    self.fixture = love.physics.newFixture(self.body, self.shape)
+    self.fixture:setUserData(self)
 end
 
 function Food:update()
