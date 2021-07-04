@@ -13,7 +13,7 @@ local moveIncrement = .25
 local size = 32
 
 local Player = {
-    headPos = Vector.new(0, 0),
+    headPos = Vector.new(3, 0),
     lastMove = 0,
     moveDir = Move.Right,
     segments = {}
@@ -27,7 +27,7 @@ function Player.new()
 end
 
 function Player:init()
-    -- self.segments = {Vector.new(2, 2)}
+    self.tail = {Vector.new(2, 0), Vector.new(1, 0)}
 end
 
 function Player:update(dt)
@@ -54,16 +54,20 @@ function Player:update(dt)
     while self.lastMove >= moveIncrement do
         self.lastMove = self.lastMove - moveIncrement
         self.headPos = self.headPos + self.moveDir
-        -- local head = self.segments[1]
-        -- head.x = head.x + 32
     end
 end
 
 function Player:draw()
-    local head = self.segments[1]
-    local drawPos = self.headPos * size
+    local headDrawPos = self.headPos * size
     love.graphics.setColor({0, 1, 0})
-    love.graphics.rectangle('fill', drawPos.x, drawPos.y, size, size)
+    love.graphics.rectangle('fill', headDrawPos.x, headDrawPos.y, size, size)
+
+    -- draw tail
+    love.graphics.setColor({.05, .7, .05})
+    for _, seg in ipairs(self.tail) do
+        local tailDrawPos = seg * size
+        love.graphics.rectangle('fill', tailDrawPos.x + 1, tailDrawPos.y + 1, size - 2, size - 2)
+    end
 end
 
 return Player
