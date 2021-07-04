@@ -1,4 +1,11 @@
-local Food = {}
+local Vector = require('src.vector')
+
+-- TODO: get this from "grid" settings
+local size = 32
+
+local Food = {
+    pos = Vector.new(10, 10)
+}
 Food.__index = Food
 
 function Food.new()
@@ -8,16 +15,15 @@ function Food.new()
 end
 
 function Food:init()
-    self.body = love.physics.newBody(world, x, y, 'static')
-    self.shape = love.physics.newRectangleShape(50, 20)
-    self.fixture = love.physics.newFixture(self.body, self.shape)
-    self.fixture:setUserData(self)
 end
 
 function Food:update()
 end
 
 function Food:draw()
+    local drawPos = self.pos * size
+    love.graphics.setColor({.8, 0, 0})
+    love.graphics.rectangle('fill', drawPos.x, drawPos.y, size, size)
 end
 
 return Food
