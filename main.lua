@@ -1,4 +1,5 @@
 local Food = require('src.food')
+local Globals = require('src.globals')
 local Input = require('src.input')
 local Player = require('src.player')
 local world = require('src.world')
@@ -9,6 +10,9 @@ local food = nil
 function love.load()
     player = Player.new()
     food = Food.new()
+
+    Globals.player = player
+    Globals.food = food
 end
 
 function love.focus(focused)
@@ -17,13 +21,12 @@ end
 
 function love.update(dt)
     player:update(dt)
-    -- TODO: check collisions
     -- TODO: update game state if necessary
     Input.lateUpdate(dt)
 end
 
 function love.draw()
+    -- TODO: draw a grid
     food:draw()
     player:draw()
-    -- TODO: draw all the things
 end

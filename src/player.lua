@@ -1,4 +1,6 @@
+local Globals = require('src.globals')
 local Input = require('src.input')
+local Rect = require('src.rect')
 local Vector = require('src.vector')
 
 local Move = {
@@ -18,12 +20,13 @@ local moveIncrement = .2
 local size = 32
 
 local Player = {
+    bounds = Rect.new(32 * 3, 0, size, size),
     head = Vector.new(3, 0),
     lastMoveTime = 0,
     lastMoveDir = Move.Right,
     moveDir = Move.Right,
     nextMoveDir = Move.Right,
-    segments = {}
+    tail = {}
 }
 Player.__index = Player
 
@@ -61,11 +64,24 @@ function Player:update(dt)
     while self.lastMoveTime >= moveIncrement do
         -- update the tail positions with the previous head position
         table.insert(self.tail, 1, self.head)
+        -- TODO: add a "fade out" effect on the last segment
         table.remove(self.tail, #self.tail)
 
         self.lastMoveTime = self.lastMoveTime - moveIncrement
         self.lastMoveDir = self.moveDir
         self.head = self.head + self.moveDir
+        self.bounds:set(self.head.x * size, self.head.y * size, size, size)
+
+        -- TODO: add collision detection against tail segments
+
+        local food = Globals.food
+        if self.bounds:overlaps(food.bounds) then
+            -- TODO: increase speed
+            -- TODO: add a "fade in effect for the new segment"
+            local lastTail = self.tail[#self.tail]
+            table.insert(self.tail, #self.tail, Vector.clone(lastTail))
+            food:onPlayerCollision(self)
+        end
     end
 end
 
@@ -73,7 +89,7 @@ function Player:draw()
     -- draw head
     local headDrawPos = self.head * size
     love.graphics.setColor(Colors.Head)
-    love.graphics.rectangle('fill', headDrawPos.x, headDrawPos.y, size, size)
+    self.bounds:draw()
 
     -- draw tail
     love.graphics.setColor(Colors.Tail)

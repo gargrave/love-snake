@@ -6,7 +6,7 @@ Vector.__index = Vector
 
 function Vector.new(x, y)
     local new = setmetatable({}, Vector)
-    new:init(x, y)
+    new:init(x or 0, y or 0)
     return new
 end
 
@@ -15,6 +15,10 @@ function Vector.clone(other)
 end
 
 function Vector:init(x, y)
+    self:set(x, y)
+end
+
+function Vector:set(x, y)
     self.x = x
     self.y = y
 end
