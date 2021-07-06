@@ -13,15 +13,17 @@ function love.keyreleased(key)
 end
 
 function Input.lateUpdate(dt)
-    for key, value in ipairs(keys) do
-        prevKeys[key] = true
+    for key, value in pairs(keys) do
+        prevKeys[key] = value
     end
 end
 
+-- TODO: allow multiple keys
 function Input.isHeld(key)
     return keys[key]
 end
 
+-- TODO: allow multiple keys
 function Input.wasPressed(key)
     return keys[key] and not prevKeys[key]
 end

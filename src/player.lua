@@ -41,8 +41,18 @@ function Player:init()
 end
 
 function Player:update(dt)
+    -- check if head and tail have collided
+    local tailRect = Rect.new()
+    for _, tail in ipairs(self.tail) do
+        tailRect:set(tail.x * size, tail.y * size, size, size)
+        if self.bounds:overlaps(tailRect) then
+            love.event.quit()
+        end
+    end
+
     -- change the next move direction based on input,
     -- but prevent moving in the opposite of the current direction
+    -- TODO: replace controls with named constants
     if Input.wasPressed('a') then
         self.nextMoveDir = Move.Left
     end
@@ -72,8 +82,6 @@ function Player:update(dt)
         self.head = self.head + self.moveDir
         self.bounds:set(self.head.x * size, self.head.y * size, size, size)
 
-        -- TODO: add collision detection against tail segments
-
         local food = Globals.food
         if self.bounds:overlaps(food.bounds) then
             -- TODO: increase speed
@@ -95,6 +103,7 @@ function Player:draw()
     love.graphics.setColor(Colors.Tail)
     for _, seg in ipairs(self.tail) do
         local tailDrawPos = seg * size
+        -- TODO: maybe make each subsequent tail section a little more faded than the previous
         love.graphics.rectangle('fill', tailDrawPos.x + 1, tailDrawPos.y + 1, size - 2, size - 2)
     end
 end
