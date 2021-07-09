@@ -1,7 +1,6 @@
-MathHelpers = {}
-MathHelpers.__index = MathHelpers
+local Math = {}
 
-function MathHelpers.wrapNum(min, max, val)
+function Math.wrapNum(min, max, val)
     if val > max then
         return min
     elseif val < min then
@@ -9,3 +8,5 @@ function MathHelpers.wrapNum(min, max, val)
     end
     return val
 end
+
+return Math

@@ -1,13 +1,10 @@
-local Rect = require('src.rect')
-local Vector = require('src.vector')
-
 -- TODO: get this from "grid" settings
 local size, maxX, maxY = 32, 29, 16
 local offset = 2
 
 local Food = {
-    bounds = Rect.new(),
-    pos = Vector.new()
+    bounds = gg.Rect.new(),
+    pos = gg.Vector.new()
 }
 Food.__index = Food
 
@@ -24,9 +21,9 @@ end
 function Food:randomizePosition(player)
     local newX = love.math.random(maxX)
     local newY = love.math.random(maxY)
+    -- TODO: ensure new position does not collide with player
     self.pos:set(newX, newY)
     self.bounds:set(newX * size + offset, newY * size + offset, size - offset * 2, size - offset * 2)
-    -- TODO: ensure new position does not collide with player
 end
 
 function Food:onPlayerCollision(player)

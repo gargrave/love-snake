@@ -1,6 +1,5 @@
-local Globals = require('src.globals')
+local Globals = require('src.snake.globals')
 local Input = require('src.input')
-local TextMenu = require('src.core.text-menu')
 
 local player = Globals.player
 local food = Globals.food
@@ -38,7 +37,7 @@ function PausedState:init()
         text = 'Quit'
     }}
 
-    self.menu = TextMenu.new(menuConfig, menuItems)
+    self.menu = gg.TextMenu.new(menuConfig, menuItems)
 end
 
 function PausedState:enter(machine)

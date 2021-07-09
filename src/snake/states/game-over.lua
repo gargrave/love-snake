@@ -1,4 +1,4 @@
-local Globals = require('src.globals')
+local Globals = require('src.snake.globals')
 local Input = require('src.input')
 
 local GameOverState = {

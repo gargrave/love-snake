@@ -28,7 +28,7 @@ function TextMenu:init(config, items)
     self.items = items
     -- curried fn to wrap value for selected idx
     self.wrapIdx = function(val)
-        return MathHelpers.wrapNum(1, #self.items, val)
+        return gg.Math.wrapNum(1, #self.items, val)
     end
 end
 

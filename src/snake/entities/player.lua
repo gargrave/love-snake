@@ -1,13 +1,11 @@
-local Globals = require('src.globals')
+local Globals = require('src.snake.globals')
 local Input = require('src.input')
-local Rect = require('src.rect')
-local Vector = require('src.vector')
 
 local Move = {
-    Right = Vector.new(1, 0),
-    Left = Vector.new(-1, 0),
-    Up = Vector.new(0, -1),
-    Down = Vector.new(0, 1)
+    Right = gg.Vector.new(1, 0),
+    Left = gg.Vector.new(-1, 0),
+    Up = gg.Vector.new(0, -1),
+    Down = gg.Vector.new(0, 1)
 }
 
 local Colors = {
@@ -20,8 +18,8 @@ local moveIncrement = .2
 local size = 32
 
 local Player = {
-    bounds = Rect.new(32 * 3, 0, size, size),
-    head = Vector.new(3, 0),
+    bounds = gg.Rect.new(32 * 3, 0, size, size),
+    head = gg.Vector.new(3, 0),
     lastMoveTime = 0,
     lastMoveDir = Move.Right,
     moveDir = Move.Right,
@@ -37,12 +35,12 @@ function Player.new()
 end
 
 function Player:init()
-    self.tail = {Vector.new(2, 0), Vector.new(1, 0), Vector.new(0, 0)}
+    self.tail = {gg.Vector.new(2, 0), gg.Vector.new(1, 0), gg.Vector.new(0, 0)}
 end
 
 function Player:update(dt)
     -- check if head and tail have collided
-    local tailRect = Rect.new()
+    local tailRect = gg.Rect.new()
     for _, tail in ipairs(self.tail) do
         tailRect:set(tail.x * size, tail.y * size, size, size)
         if self.bounds:overlaps(tailRect) then
@@ -86,7 +84,7 @@ function Player:update(dt)
             -- TODO: increase speed
             -- TODO: add a "fade in effect for the new segment"
             local lastTail = self.tail[#self.tail]
-            table.insert(self.tail, #self.tail, Vector.clone(lastTail))
+            table.insert(self.tail, #self.tail, gg.Vector.clone(lastTail))
             food:onPlayerCollision(self)
         end
     end

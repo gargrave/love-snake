@@ -1,18 +1,18 @@
-require('src.assets')
-require('src.constants')
-require('src.core.utils.math')
+-- initialize gg
+require('src.gg.__init__')
+
+require('src.snake.assets')
 require('src.snake.config')
+require('src.snake.constants')
 
-local Globals = require('src.globals')
-
-local Food = require('src.food')
 local Input = require('src.input')
-local Player = require('src.player')
 
-local GameState = require('src.states.game')
-local GameOverState = require('src.states.game-over')
-local PausedState = require('src.states.paused')
-local StateMachine = require('src.states.machine')
+local Food = require('src.snake.entities.food')
+local GameOverState = require('src.snake.states.game-over')
+local GameState = require('src.snake.states.game')
+local Globals = require('src.snake.globals')
+local PausedState = require('src.snake.states.paused')
+local Player = require('src.snake.entities.player')
 
 local player = nil
 local food = nil
@@ -30,7 +30,7 @@ function love.load()
     gameOverState = GameOverState.new()
     pausedState = PausedState.new()
 
-    stateMachine = StateMachine.new({
+    stateMachine = gg.StateMachine.new({
         [__Game.State.Game] = gameState,
         [__Game.State.GameOver] = gameOverState,
         [__Game.State.Paused] = pausedState
