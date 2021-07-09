@@ -1,5 +1,7 @@
-local Food = require('src.food')
+local Constants = require('src.constants')
 local Globals = require('src.globals')
+
+local Food = require('src.food')
 local Input = require('src.input')
 local Player = require('src.player')
 
@@ -24,18 +26,16 @@ function love.load()
     gameState = GameState.new()
     pausedState = PausedState.new()
 
-    -- TODO: move keys to constants
-    local stateMap = {
-        GAME = gameState,
-        PAUSED = pausedState
-    }
-    stateMachine = StateMachine.new(stateMap)
-    stateMachine:setNextState('GAME')
+    stateMachine = StateMachine.new({
+        [__Game.State.Game] = gameState,
+        [__Game.State.Paused] = pausedState
+    })
+    stateMachine:setNextState(__Game.State.Game)
 end
 
 function love.focus(focused)
     if not focused then
-        stateMachine:setNextState('PAUSED')
+        stateMachine:setNextState(__Game.State.Paused)
     end
 end
 

@@ -31,8 +31,7 @@ function PausedState:update(dt)
     end
 
     if Input.wasPressed('escape') then
-        -- TODO: move state keys to constants
-        self.machine:setNextState('GAME')
+        self.machine:setNextState(__Game.State.Game)
     end
 
     Input.lateUpdate(dt)
