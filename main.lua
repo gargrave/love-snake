@@ -1,5 +1,6 @@
 require('src.assets')
 require('src.constants')
+require('src.core.utils.math')
 
 local Globals = require('src.globals')
 
