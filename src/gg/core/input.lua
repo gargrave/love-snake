@@ -1,8 +1,7 @@
+local Input = {}
+
 local keys = {}
 local prevKeys = {}
-
-local Input = {}
-Input.__index = Input
 
 function love.keypressed(key)
     keys[key] = true

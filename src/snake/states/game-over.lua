@@ -1,5 +1,4 @@
 local Globals = require('src.snake.globals')
-local Input = require('src.input')
 
 local GameOverState = {
     machine = nil
@@ -31,7 +30,7 @@ function GameOverState:update(dt)
     --     self.machine:setNextState(__Game.State.Game)
     -- end
 
-    Input.lateUpdate(dt)
+    gg.Input.lateUpdate(dt)
 end
 
 function GameOverState:draw()

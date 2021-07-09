@@ -1,6 +1,4 @@
 local Globals = require('src.snake.globals')
-local Input = require('src.input')
-
 local Move = {
     Right = gg.Vector.new(1, 0),
     Left = gg.Vector.new(-1, 0),
@@ -50,16 +48,16 @@ function Player:update(dt)
 
     -- change the next move direction based on input,
     -- but prevent moving in the opposite of the current direction
-    if Input.wasPressed(InputAction.MoveLeft) then
+    if gg.Input.wasPressed(InputAction.MoveLeft) then
         self.nextMoveDir = Move.Left
     end
-    if Input.wasPressed(InputAction.MoveRight) then
+    if gg.Input.wasPressed(InputAction.MoveRight) then
         self.nextMoveDir = Move.Right
     end
-    if Input.wasPressed(InputAction.MoveUp) then
+    if gg.Input.wasPressed(InputAction.MoveUp) then
         self.nextMoveDir = Move.Up
     end
-    if Input.wasPressed(InputAction.MoveDown) then
+    if gg.Input.wasPressed(InputAction.MoveDown) then
         self.nextMoveDir = Move.Down
     end
 

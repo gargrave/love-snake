@@ -1,4 +1,5 @@
 gg = {
+    Input = require('src.gg.core.input'),
     StateMachine = require('src.gg.core.state-machine'),
 
     Math = require('src.gg.math.math-helpers'),

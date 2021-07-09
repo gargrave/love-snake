@@ -1,5 +1,4 @@
 local Globals = require('src.snake.globals')
-local Input = require('src.input')
 
 local player = Globals.player
 local food = Globals.food
@@ -33,11 +32,11 @@ function GameState:update(dt)
 
     player:update(dt)
 
-    if Input.wasPressed('escape') then
+    if gg.Input.wasPressed(InputAction.Pause) then
         self.machine:setNextState(__Game.State.Paused)
     end
 
-    Input.lateUpdate(dt)
+    gg.Input.lateUpdate(dt)
 end
 
 function GameState:draw()

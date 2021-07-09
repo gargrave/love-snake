@@ -5,8 +5,6 @@ require('src.snake.assets')
 require('src.snake.config')
 require('src.snake.constants')
 
-local Input = require('src.input')
-
 local Food = require('src.snake.entities.food')
 local GameOverState = require('src.snake.states.game-over')
 local GameState = require('src.snake.states.game')

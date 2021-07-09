@@ -1,5 +1,4 @@
 local Globals = require('src.snake.globals')
-local Input = require('src.input')
 
 local player = Globals.player
 local food = Globals.food
@@ -56,13 +55,13 @@ function PausedState:update(dt)
         food = Globals.food
     end
 
-    if Input.wasPressed(InputAction.Pause) then
+    if gg.Input.wasPressed(InputAction.Pause) then
         self:unpause()
     else
         self.menu:update(dt)
     end
 
-    Input.lateUpdate(dt)
+    gg.Input.lateUpdate(dt)
 end
 
 function PausedState:draw()

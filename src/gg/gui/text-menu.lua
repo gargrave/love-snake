@@ -1,5 +1,3 @@
-local Input = require('src.input')
-
 local TextMenu = {
     activeIdx = 1,
     config = {
@@ -34,15 +32,15 @@ end
 
 function TextMenu:update(dt)
     local inc = 0
-    if Input.wasPressed(InputAction.MoveUp) then
+    if gg.Input.wasPressed(InputAction.MoveUp) then
         inc = inc - 1
     end
-    if Input.wasPressed(InputAction.MoveDown) then
+    if gg.Input.wasPressed(InputAction.MoveDown) then
         inc = inc + 1
     end
     self.activeIdx = self.wrapIdx(self.activeIdx + inc)
 
-    if Input.wasPressed(InputAction.Enter) then
+    if gg.Input.wasPressed(InputAction.Enter) then
         local item = self.items[self.activeIdx]
         if item.action then
             item.action()
