@@ -46,7 +46,7 @@ function Player:update(dt)
     for _, tail in ipairs(self.tail) do
         tailRect:set(tail.x * size, tail.y * size, size, size)
         if self.bounds:overlaps(tailRect) then
-            love.event.quit()
+            Globals.stateMachine:setNextState(__Game.State.GameOver)
         end
     end
 

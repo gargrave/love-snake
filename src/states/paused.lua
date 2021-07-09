@@ -43,9 +43,18 @@ function PausedState:draw()
     player:draw()
 
     -- TODO: draw a pause-screen overlay
+
     -- TODO: build a better "paused" GUI
+    local sw, sh = love.window.getMode()
+    love.graphics.setColor({0, 0, 0, .8})
+    love.graphics.rectangle('fill', 0, 0, sw, sh)
+
     love.graphics.setColor({1, 1, 1})
-    love.graphics.print('Paused')
+    local titleFont = Assets.fonts.main__64
+    local titleText = 'Paused'
+    local titleW, titleH = titleFont:getWidth(titleText), titleFont:getHeight(titleText)
+    love.graphics.setFont(titleFont)
+    love.graphics.print('Paused', sw / 2 - titleW / 2, sh / 2 - titleH / 2)
 end
 
 return PausedState
