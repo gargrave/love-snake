@@ -52,17 +52,16 @@ function Player:update(dt)
 
     -- change the next move direction based on input,
     -- but prevent moving in the opposite of the current direction
-    -- TODO: replace controls with named constants
-    if Input.wasPressed('a') then
+    if Input.wasPressed(InputAction.MoveLeft) then
         self.nextMoveDir = Move.Left
     end
-    if Input.wasPressed('d') then
+    if Input.wasPressed(InputAction.MoveRight) then
         self.nextMoveDir = Move.Right
     end
-    if Input.wasPressed('w') then
+    if Input.wasPressed(InputAction.MoveUp) then
         self.nextMoveDir = Move.Up
     end
-    if Input.wasPressed('s') then
+    if Input.wasPressed(InputAction.MoveDown) then
         self.nextMoveDir = Move.Down
     end
 

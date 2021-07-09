@@ -19,9 +19,9 @@ end
 
 function PausedState:init()
     local menuConfig = {
-        activeColor = __Colors.Yellow,
+        activeColor = __Color.Yellow,
         activeFont = Assets.fonts.main__24,
-        idleColor = __Colors.White,
+        idleColor = __Color.White,
         idleFont = Assets.fonts.main__24
     }
 
@@ -57,8 +57,7 @@ function PausedState:update(dt)
         food = Globals.food
     end
 
-    -- TODO: replace with named const
-    if Input.wasPressed('escape') then
+    if Input.wasPressed(InputAction.Pause) then
         self:unpause()
     else
         self.menu:update(dt)

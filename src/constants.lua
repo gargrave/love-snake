@@ -6,7 +6,7 @@ __Game.State = {
     Paused = 'Paused'
 }
 
-__Colors = {
+__Color = {
     White = {1, 1, 1},
     Black = {0, 0, 0},
     Red = {1, 0, 0},
@@ -14,3 +14,5 @@ __Colors = {
     Blue = {0, 0, 1},
     Yellow = {1, 1, 0}
 }
+
+__Action = {MoveUp, MoveRight, MoveDown, MoveLeft, Pause, Enter}

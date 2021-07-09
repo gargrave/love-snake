@@ -1,6 +1,7 @@
 require('src.assets')
 require('src.constants')
 require('src.core.utils.math')
+require('src.snake.config')
 
 local Globals = require('src.globals')
 

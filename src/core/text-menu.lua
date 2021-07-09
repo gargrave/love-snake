@@ -34,18 +34,15 @@ end
 
 function TextMenu:update(dt)
     local inc = 0
-    -- TODO: replace with named const
-    if Input.wasPressed('w') then
+    if Input.wasPressed(InputAction.MoveUp) then
         inc = inc - 1
     end
-    -- TODO: replace with named const
-    if Input.wasPressed('s') then
+    if Input.wasPressed(InputAction.MoveDown) then
         inc = inc + 1
     end
     self.activeIdx = self.wrapIdx(self.activeIdx + inc)
 
-    -- TODO: replace with named const
-    if Input.wasPressed('space') then
+    if Input.wasPressed(InputAction.Enter) then
         local item = self.items[self.activeIdx]
         if item.action then
             item.action()

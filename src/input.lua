@@ -18,14 +18,30 @@ function Input.lateUpdate(dt)
     end
 end
 
--- TODO: allow multiple keys
 function Input.isHeld(key)
-    return keys[key]
+    if type(key) == 'string' then
+        return keys[val]
+    else
+        for _, val in ipairs(key) do
+            if keys[val] then
+                return true
+            end
+        end
+        return false
+    end
 end
 
--- TODO: allow multiple keys
 function Input.wasPressed(key)
-    return keys[key] and not prevKeys[key]
+    if type(key) == 'string' then
+        return keys[key] and not prevKeys[key]
+    else
+        for _, val in ipairs(key) do
+            if keys[val] and not prevKeys[val] then
+                return true
+            end
+        end
+        return false
+    end
 end
 
 return Input
