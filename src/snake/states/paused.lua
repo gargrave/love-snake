@@ -1,8 +1,8 @@
-local Globals = require('src.snake.globals')
+-- TODO: move these to PausedState
+local player = nil
+local food = nil
 
-local player = Globals.player
-local food = Globals.food
-
+-- TODO: rename to paused-state.lua
 local PausedState = {
     machine = nil,
     menu = nil
@@ -17,10 +17,10 @@ end
 
 function PausedState:init()
     local menuConfig = {
-        activeColor = __Color.Yellow,
-        activeFont = Assets.fonts.main__24,
-        idleColor = __Color.White,
-        idleFont = Assets.fonts.main__24
+        activeColor = sn.Color.Yellow,
+        activeFont = sn.Assets.fonts.main__24,
+        idleColor = sn.Color.White,
+        idleFont = sn.Assets.fonts.main__24
     }
 
     local menuItems = {{
@@ -44,18 +44,18 @@ function PausedState:enter(machine)
 end
 
 function PausedState:unpause()
-    self.machine:setNextState(__Game.State.Game)
+    self.machine:setNextState(sn.State.Game)
 end
 
 function PausedState:update(dt)
     if not player then
-        player = Globals.player
+        player = sn.Globals.player
     end
     if not food then
-        food = Globals.food
+        food = sn.Globals.food
     end
 
-    if gg.Input.wasPressed(InputAction.Pause) then
+    if gg.Input.wasPressed(sn.InputAction.Pause) then
         self:unpause()
     else
         self.menu:update(dt)
@@ -75,7 +75,7 @@ function PausedState:draw()
     love.graphics.rectangle('fill', 0, 0, sw, sh)
 
     love.graphics.setColor({1, 1, 1})
-    local titleFont = Assets.fonts.main__64
+    local titleFont = sn.Assets.fonts.main__64
     local titleText = 'Paused'
     local titleW, titleH = titleFont:getWidth(titleText), titleFont:getHeight(titleText)
     love.graphics.setFont(titleFont)

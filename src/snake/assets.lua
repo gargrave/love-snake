@@ -1,4 +1,4 @@
-Assets = {}
+local Assets = {}
 Assets.__index = Assets
 
 function Assets.load()
@@ -14,4 +14,4 @@ function Assets.load()
     }
 end
 
-Assets.load()
+return Assets

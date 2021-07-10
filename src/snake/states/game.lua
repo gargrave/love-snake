@@ -1,7 +1,5 @@
-local Globals = require('src.snake.globals')
-
-local player = Globals.player
-local food = Globals.food
+local player = nil
+local food = nil
 
 local GameState = {
     machine = nil
@@ -24,16 +22,16 @@ end
 
 function GameState:update(dt)
     if not player then
-        player = Globals.player
+        player = sn.Globals.player
     end
     if not food then
-        food = Globals.food
+        food = sn.Globals.food
     end
 
     player:update(dt)
 
-    if gg.Input.wasPressed(InputAction.Pause) then
-        self.machine:setNextState(__Game.State.Paused)
+    if gg.Input.wasPressed(sn.InputAction.Pause) then
+        self.machine:setNextState(sn.State.Paused)
     end
 
     gg.Input.lateUpdate(dt)

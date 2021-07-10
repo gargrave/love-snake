@@ -1,4 +1,3 @@
-local Globals = require('src.snake.globals')
 local Move = {
     Right = gg.Vector.new(1, 0),
     Left = gg.Vector.new(-1, 0),
@@ -42,22 +41,22 @@ function Player:update(dt)
     for _, tail in ipairs(self.tail) do
         tailRect:set(tail.x * size, tail.y * size, size, size)
         if self.bounds:overlaps(tailRect) then
-            Globals.stateMachine:setNextState(__Game.State.GameOver)
+            sn.Globals.stateMachine:setNextState(sn.State.GameOver)
         end
     end
 
     -- change the next move direction based on input,
     -- but prevent moving in the opposite of the current direction
-    if gg.Input.wasPressed(InputAction.MoveLeft) then
+    if gg.Input.wasPressed(sn.InputAction.MoveLeft) then
         self.nextMoveDir = Move.Left
     end
-    if gg.Input.wasPressed(InputAction.MoveRight) then
+    if gg.Input.wasPressed(sn.InputAction.MoveRight) then
         self.nextMoveDir = Move.Right
     end
-    if gg.Input.wasPressed(InputAction.MoveUp) then
+    if gg.Input.wasPressed(sn.InputAction.MoveUp) then
         self.nextMoveDir = Move.Up
     end
-    if gg.Input.wasPressed(InputAction.MoveDown) then
+    if gg.Input.wasPressed(sn.InputAction.MoveDown) then
         self.nextMoveDir = Move.Down
     end
 
@@ -77,7 +76,7 @@ function Player:update(dt)
         self.head = self.head + self.moveDir
         self.bounds:set(self.head.x * size, self.head.y * size, size, size)
 
-        local food = Globals.food
+        local food = sn.Globals.food
         if self.bounds:overlaps(food.bounds) then
             -- TODO: increase speed
             -- TODO: add a "fade in effect for the new segment"

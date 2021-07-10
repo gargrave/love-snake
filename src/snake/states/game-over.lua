@@ -1,5 +1,3 @@
-local Globals = require('src.snake.globals')
-
 local GameOverState = {
     machine = nil
 }
@@ -20,14 +18,14 @@ end
 
 function GameOverState:update(dt)
     -- if not player then
-    --     player = Globals.player
+    --     player = sn.Globals.player
     -- end
     -- if not food then
-    --     food = Globals.food
+    --     food = sn.Globals.food
     -- end
 
     -- if Input.wasPressed('escape') then
-    --     self.machine:setNextState(__Game.State.Game)
+    --     self.machine:setNextState(sn.State.Game)
     -- end
 
     gg.Input.lateUpdate(dt)
@@ -35,8 +33,8 @@ end
 
 function GameOverState:draw()
     -- TODO: draw a grid
-    Globals.food:draw()
-    Globals.player:draw()
+    sn.Globals.food:draw()
+    sn.Globals.player:draw()
 
     -- TODO: draw a pause-screen overlay
     -- TODO: build a better "paused" GUI

@@ -1,49 +1,30 @@
--- initialize gg
 require('src.gg.__init__')
-
-require('src.snake.assets')
-require('src.snake.config')
-require('src.snake.constants')
-
-local Food = require('src.snake.entities.food')
-local GameOverState = require('src.snake.states.game-over')
-local GameState = require('src.snake.states.game')
-local Globals = require('src.snake.globals')
-local PausedState = require('src.snake.states.paused')
-local Player = require('src.snake.entities.player')
+require('src.snake.__init__')
 
 local player = nil
 local food = nil
-
-local gameState = nil
-local gameOverState = nil
-local pausedState = nil
 local stateMachine = nil
 
 function love.load()
-    player = Player.new()
-    food = Food.new()
-
-    gameState = GameState.new()
-    gameOverState = GameOverState.new()
-    pausedState = PausedState.new()
+    player = sn.Player.new()
+    food = sn.Food.new()
 
     stateMachine = gg.StateMachine.new({
-        [__Game.State.Game] = gameState,
-        [__Game.State.GameOver] = gameOverState,
-        [__Game.State.Paused] = pausedState
+        [sn.State.Game] = sn.GameState.new(),
+        [sn.State.GameOver] = sn.GameOverState.new(),
+        [sn.State.Paused] = sn.PausedState.new()
     })
 
-    Globals.player = player
-    Globals.food = food
-    Globals.stateMachine = stateMachine
+    sn.Globals.player = player
+    sn.Globals.food = food
+    sn.Globals.stateMachine = stateMachine
 
-    stateMachine:setNextState(__Game.State.Game)
+    stateMachine:setNextState(sn.State.Game)
 end
 
 function love.focus(focused)
     if not focused then
-        stateMachine:setNextState(__Game.State.Paused)
+        stateMachine:setNextState(sn.State.Paused)
     end
 end
 
