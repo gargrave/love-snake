@@ -1,4 +1,3 @@
--- TODO: rename to InputMap
 return {
     MoveUp = {'w', 'up'},
     MoveRight = {'d', 'right'},

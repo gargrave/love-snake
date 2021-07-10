@@ -7,7 +7,7 @@ sn = {
     Color = require('src.snake.config.color'),
     Globals = require('src.snake.config.globals'),
     State = require('src.snake.config.game-state'),
-    InputAction = require('src.snake.config.input-action'),
+    InputMap = require('src.snake.config.input-map'),
 
     Food = require('src.snake.entities.food'),
     Player = require('src.snake.entities.player'),

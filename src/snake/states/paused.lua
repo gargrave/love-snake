@@ -55,7 +55,7 @@ function PausedState:update(dt)
         food = sn.Globals.food
     end
 
-    if gg.Input.wasPressed(sn.InputAction.Pause) then
+    if gg.Input.wasPressed(sn.InputMap.Pause) then
         self:unpause()
     else
         self.menu:update(dt)

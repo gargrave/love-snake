@@ -30,7 +30,7 @@ function GameState:update(dt)
 
     player:update(dt)
 
-    if gg.Input.wasPressed(sn.InputAction.Pause) then
+    if gg.Input.wasPressed(sn.InputMap.Pause) then
         self.machine:setNextState(sn.State.Paused)
     end
 

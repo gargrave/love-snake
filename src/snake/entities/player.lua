@@ -47,16 +47,16 @@ function Player:update(dt)
 
     -- change the next move direction based on input,
     -- but prevent moving in the opposite of the current direction
-    if gg.Input.wasPressed(sn.InputAction.MoveLeft) then
+    if gg.Input.wasPressed(sn.InputMap.MoveLeft) then
         self.nextMoveDir = Move.Left
     end
-    if gg.Input.wasPressed(sn.InputAction.MoveRight) then
+    if gg.Input.wasPressed(sn.InputMap.MoveRight) then
         self.nextMoveDir = Move.Right
     end
-    if gg.Input.wasPressed(sn.InputAction.MoveUp) then
+    if gg.Input.wasPressed(sn.InputMap.MoveUp) then
         self.nextMoveDir = Move.Up
     end
-    if gg.Input.wasPressed(sn.InputAction.MoveDown) then
+    if gg.Input.wasPressed(sn.InputMap.MoveDown) then
         self.nextMoveDir = Move.Down
     end
 

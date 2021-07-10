@@ -32,15 +32,15 @@ end
 
 function TextMenu:update(dt)
     local inc = 0
-    if gg.Input.wasPressed(sn.InputAction.MoveUp) then
+    if gg.Input.wasPressed(sn.InputMap.MoveUp) then
         inc = inc - 1
     end
-    if gg.Input.wasPressed(sn.InputAction.MoveDown) then
+    if gg.Input.wasPressed(sn.InputMap.MoveDown) then
         inc = inc + 1
     end
     self.activeIdx = self.wrapIdx(self.activeIdx + inc)
 
-    if gg.Input.wasPressed(sn.InputAction.Enter) then
+    if gg.Input.wasPressed(sn.InputMap.Enter) then
         local item = self.items[self.activeIdx]
         if item.action then
             item.action()
