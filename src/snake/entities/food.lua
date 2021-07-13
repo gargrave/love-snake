@@ -1,7 +1,3 @@
--- TODO: get this from "grid" settings
-local size, maxX, maxY = 32, 29, 16
-local offset = 2
-
 local Food = {
     bounds = gg.Rect.new(),
     pos = gg.Vector.new()
@@ -19,6 +15,9 @@ function Food:init()
 end
 
 function Food:randomizePosition(player)
+    local size, maxX, maxY = sn.Globals.grid:getDimensions()
+    local offset = 2
+
     local newX = love.math.random(maxX)
     local newY = love.math.random(maxY)
     -- TODO: ensure new position does not collide with player
@@ -31,7 +30,7 @@ function Food:onPlayerCollision(player)
 end
 
 function Food:draw()
-    local drawPos = self.pos * size
+    local drawPos = self.pos * sn.Globals.gridSize
     love.graphics.setColor({.8, 0, 0})
     self.bounds:draw()
 end

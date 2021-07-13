@@ -1,7 +1,3 @@
--- TODO: move these to PausedState
-local player = nil
-local food = nil
-
 -- TODO: rename to paused-state.lua
 local PausedState = {
     machine = nil,
@@ -48,13 +44,6 @@ function PausedState:unpause()
 end
 
 function PausedState:update(dt)
-    if not player then
-        player = sn.Globals.player
-    end
-    if not food then
-        food = sn.Globals.food
-    end
-
     if gg.Input.wasPressed(sn.InputMap.Pause) then
         self:unpause()
     else
@@ -65,11 +54,10 @@ function PausedState:update(dt)
 end
 
 function PausedState:draw()
-    -- TODO: draw a grid
-    food:draw()
-    player:draw()
+    sn.Globals.food:draw()
+    sn.Globals.player:draw()
+    sn.Globals.grid:draw()
 
-    -- TODO: build a better "paused" GUI
     local sw, sh = love.window.getMode()
     love.graphics.setColor({0, 0, 0, .8})
     love.graphics.rectangle('fill', 0, 0, sw, sh)

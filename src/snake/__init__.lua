@@ -10,6 +10,7 @@ sn = {
     InputMap = require('src.snake.config.input-map'),
 
     Food = require('src.snake.entities.food'),
+    Grid = require('src.snake.entities.grid'),
     Player = require('src.snake.entities.player'),
 
     GameOverState = require('src.snake.states.game-over'),

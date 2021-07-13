@@ -1,7 +1,10 @@
 local Globals = {
-    stateMachine = nil,
+    gridSize = 32,
+
+    food = nil,
+    grid = nil,
     player = nil,
-    food = nil
+    stateMachine = nil
 }
 
 return Globals

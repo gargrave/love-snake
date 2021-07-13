@@ -1,11 +1,15 @@
 require('src.gg.__init__')
 require('src.snake.__init__')
 
+local grid = nil
 local player = nil
 local food = nil
 local stateMachine = nil
 
 function love.load()
+    grid = sn.Grid.new(32, 29, 16)
+    sn.Globals.grid = grid
+
     player = sn.Player.new()
     food = sn.Food.new()
 

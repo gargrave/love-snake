@@ -11,16 +11,15 @@ local Colors = {
 }
 
 local moveIncrement = .2
--- TODO: get this from "grid" settings
-local size = 32
 
 local Player = {
-    bounds = gg.Rect.new(32 * 3, 0, size, size),
+    bounds = nil,
     head = gg.Vector.new(3, 0),
     lastMoveTime = 0,
     lastMoveDir = Move.Right,
     moveDir = Move.Right,
     nextMoveDir = Move.Right,
+    size = 0,
     tail = {}
 }
 Player.__index = Player
@@ -32,6 +31,8 @@ function Player.new()
 end
 
 function Player:init()
+    self.size = sn.Globals.gridSize
+    self.bounds = gg.Rect.new(32 * 3, 0, self.size, self.size)
     self.tail = {gg.Vector.new(2, 0), gg.Vector.new(1, 0), gg.Vector.new(0, 0)}
 end
 
@@ -39,7 +40,7 @@ function Player:update(dt)
     -- check if head and tail have collided
     local tailRect = gg.Rect.new()
     for _, tail in ipairs(self.tail) do
-        tailRect:set(tail.x * size, tail.y * size, size, size)
+        tailRect:set(tail.x * self.size, tail.y * self.size, self.size, self.size)
         if self.bounds:overlaps(tailRect) then
             sn.Globals.stateMachine:setNextState(sn.State.GameOver)
         end
@@ -74,7 +75,7 @@ function Player:update(dt)
         self.lastMoveTime = self.lastMoveTime - moveIncrement
         self.lastMoveDir = self.moveDir
         self.head = self.head + self.moveDir
-        self.bounds:set(self.head.x * size, self.head.y * size, size, size)
+        self.bounds:set(self.head.x * self.size, self.head.y * self.size, self.size, self.size)
 
         local food = sn.Globals.food
         if self.bounds:overlaps(food.bounds) then
@@ -89,16 +90,16 @@ end
 
 function Player:draw()
     -- draw head
-    local headDrawPos = self.head * size
+    local headDrawPos = self.head * self.size
     love.graphics.setColor(Colors.Head)
     self.bounds:draw()
 
     -- draw tail
     love.graphics.setColor(Colors.Tail)
     for _, seg in ipairs(self.tail) do
-        local tailDrawPos = seg * size
+        local tailDrawPos = seg * self.size
         -- TODO: maybe make each subsequent tail section a little more faded than the previous
-        love.graphics.rectangle('fill', tailDrawPos.x + 1, tailDrawPos.y + 1, size - 2, size - 2)
+        love.graphics.rectangle('fill', tailDrawPos.x + 1, tailDrawPos.y + 1, self.size - 2, self.size - 2)
     end
 end
 

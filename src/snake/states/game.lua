@@ -1,6 +1,4 @@
-local player = nil
-local food = nil
-
+-- TODO: rename to game-state.lua
 local GameState = {
     machine = nil
 }
@@ -21,14 +19,7 @@ function GameState:enter(machine)
 end
 
 function GameState:update(dt)
-    if not player then
-        player = sn.Globals.player
-    end
-    if not food then
-        food = sn.Globals.food
-    end
-
-    player:update(dt)
+    sn.Globals.player:update(dt)
 
     if gg.Input.wasPressed(sn.InputMap.Pause) then
         self.machine:setNextState(sn.State.Paused)
@@ -38,9 +29,9 @@ function GameState:update(dt)
 end
 
 function GameState:draw()
-    -- TODO: draw a grid
-    food:draw()
-    player:draw()
+    sn.Globals.food:draw()
+    sn.Globals.player:draw()
+    sn.Globals.grid:draw()
 end
 
 return GameState
