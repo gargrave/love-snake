@@ -1,4 +1,3 @@
--- TODO: rename to gameover-state.lua
 local GameOverState = {
     machine = nil
 }

@@ -1,4 +1,3 @@
--- TODO: rename to paused-state.lua
 local PausedState = {
     machine = nil,
     menu = nil

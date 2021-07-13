@@ -13,7 +13,7 @@ sn = {
     Grid = require('src.snake.entities.grid'),
     Player = require('src.snake.entities.player'),
 
-    GameOverState = require('src.snake.states.game-over'),
-    GameState = require('src.snake.states.game'),
-    PausedState = require('src.snake.states.paused')
+    GameOverState = require('src.snake.states.game-over-state'),
+    GameState = require('src.snake.states.game-state'),
+    PausedState = require('src.snake.states.paused-state')
 }
