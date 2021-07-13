@@ -3,6 +3,7 @@ local GameOverState = {
 }
 GameOverState.__index = GameOverState
 
+-- TODO: menu options: main menu, restart, quit
 function GameOverState.new()
     local new = setmetatable({}, GameOverState)
     new:init()
@@ -12,7 +13,7 @@ end
 function GameOverState:init()
 end
 
-function GameOverState:enter(machine)
+function GameOverState:enter(machine, prevState)
     self.machine = machine
 end
 
@@ -29,6 +30,10 @@ function GameOverState:draw()
     -- TODO: build a better "game over" GUI
     love.graphics.setColor({1, 1, 1})
     love.graphics.print('Game Over')
+end
+
+function GameOverState:is(name)
+    return name == sn.State.GameOver
 end
 
 return GameOverState

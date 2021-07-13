@@ -34,7 +34,7 @@ function PausedState:init()
     self.menu = gg.TextMenu.new(menuConfig, menuItems)
 end
 
-function PausedState:enter(machine)
+function PausedState:enter(machine, prevState)
     self.machine = machine
 end
 
@@ -69,6 +69,10 @@ function PausedState:draw()
     love.graphics.print('Paused', sw / 2 - titleW / 2, sh / 2 - titleH)
 
     self.menu:draw()
+end
+
+function PausedState:is(name)
+    return name == sn.State.Paused
 end
 
 return PausedState

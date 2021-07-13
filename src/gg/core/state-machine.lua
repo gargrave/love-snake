@@ -34,8 +34,8 @@ function StateMachine:processStateChanges()
     end
 
     if self.nextState then
+        self.nextState:enter(self, self.currentState)
         self.currentState = self.nextState
-        self.currentState:enter(self)
         self.nextState = nil
     end
 

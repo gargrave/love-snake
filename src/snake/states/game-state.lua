@@ -13,8 +13,16 @@ function GameState:init(machine)
     -- TODO: consider moving player/food initialization here
 end
 
-function GameState:enter(machine)
+function GameState:enter(machine, prevState)
     self.machine = machine
+
+    if prevState and prevState:is(sn.State.Paused) then
+        return
+    end
+
+    sn.Globals.grid = sn.Grid.new(32, 29, 16)
+    sn.Globals.player = sn.Player.new()
+    sn.Globals.food = sn.Food.new()
 end
 
 function GameState:update(dt)
@@ -31,6 +39,11 @@ function GameState:draw()
     sn.Globals.food:draw()
     sn.Globals.player:draw()
     sn.Globals.grid:draw()
+end
+
+-- TODO: move this into a parent "GameState" class
+function GameState:is(name)
+    return name == sn.State.Game
 end
 
 return GameState
