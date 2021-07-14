@@ -10,7 +10,7 @@ local Colors = {
     Tail = {.075, .55, .075}
 }
 
-local moveIncrement = .2
+local moveIncrement = .18
 
 local Player = {
     bounds = nil,

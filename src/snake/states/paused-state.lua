@@ -66,7 +66,7 @@ function PausedState:draw()
     local titleText = 'Paused'
     local titleW, titleH = titleFont:getWidth(titleText), titleFont:getHeight(titleText)
     love.graphics.setFont(titleFont)
-    love.graphics.print('Paused', sw / 2 - titleW / 2, sh / 2 - titleH)
+    love.graphics.print(titleText, sw / 2 - titleW / 2, sh / 2 - titleH)
 
     self.menu:draw()
 end

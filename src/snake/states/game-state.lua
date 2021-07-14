@@ -10,7 +10,6 @@ function GameState.new()
 end
 
 function GameState:init(machine)
-    -- TODO: consider moving player/food initialization here
 end
 
 function GameState:enter(machine, prevState)

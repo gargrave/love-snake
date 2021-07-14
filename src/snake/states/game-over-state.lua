@@ -1,9 +1,9 @@
 local GameOverState = {
-    machine = nil
+    machine = nil,
+    menu = nil
 }
 GameOverState.__index = GameOverState
 
--- TODO: menu options: main menu, restart, quit
 function GameOverState.new()
     local new = setmetatable({}, GameOverState)
     new:init()
@@ -11,6 +11,27 @@ function GameOverState.new()
 end
 
 function GameOverState:init()
+    local menuConfig = {
+        activeColor = sn.Color.Yellow,
+        activeFont = sn.Assets.fonts.main__24,
+        idleColor = sn.Color.White,
+        idleFont = sn.Assets.fonts.main__24
+    }
+
+    local menuItems = {{
+        action = function()
+            self.machine:setNextState(sn.State.Game)
+        end,
+        text = 'New Game'
+    }, {
+        -- TODO: wire up when main menu is implemented
+        text = 'Main Menu'
+    }, {
+        action = love.event.quit,
+        text = 'Quit'
+    }}
+
+    self.menu = gg.TextMenu.new(menuConfig, menuItems)
 end
 
 function GameOverState:enter(machine, prevState)
@@ -18,6 +39,7 @@ function GameOverState:enter(machine, prevState)
 end
 
 function GameOverState:update(dt)
+    self.menu:update(dt)
     gg.Input.lateUpdate(dt)
 end
 
@@ -26,10 +48,18 @@ function GameOverState:draw()
     sn.Globals.player:draw()
     sn.Globals.grid:draw()
 
-    -- TODO: draw a gameover-screen overlay
-    -- TODO: build a better "game over" GUI
+    local sw, sh = love.window.getMode()
+    love.graphics.setColor({0, 0, 0, .8})
+    love.graphics.rectangle('fill', 0, 0, sw, sh)
+
     love.graphics.setColor({1, 1, 1})
-    love.graphics.print('Game Over')
+    local titleFont = sn.Assets.fonts.main__64
+    local titleText = 'Game Over'
+    local titleW, titleH = titleFont:getWidth(titleText), titleFont:getHeight(titleText)
+    love.graphics.setFont(titleFont)
+    love.graphics.print(titleText, sw / 2 - titleW / 2, sh / 2 - titleH)
+
+    self.menu:draw()
 end
 
 function GameOverState:is(name)

@@ -9,6 +9,7 @@ function love.load()
         [sn.State.GameOver] = sn.GameOverState.new(),
         [sn.State.Paused] = sn.PausedState.new()
     })
+    sn.Globals.stateMachine = stateMachine
 
     stateMachine:setNextState(sn.State.Game)
 end
