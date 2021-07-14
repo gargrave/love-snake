@@ -30,6 +30,10 @@ function TextMenu:init(config, items)
     end
 end
 
+function TextMenu:reset()
+    self.activeIdx = 1
+end
+
 function TextMenu:update(dt)
     local inc = 0
     if gg.Input.wasPressed(sn.InputMap.MoveUp) then

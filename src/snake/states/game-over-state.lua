@@ -24,7 +24,9 @@ function GameOverState:init()
         end,
         text = 'New Game'
     }, {
-        -- TODO: wire up when main menu is implemented
+        action = function()
+            self.machine:setNextState(sn.State.Title)
+        end,
         text = 'Main Menu'
     }, {
         action = love.event.quit,
@@ -36,6 +38,7 @@ end
 
 function GameOverState:enter(machine, prevState)
     self.machine = machine
+    self.menu:reset()
 end
 
 function GameOverState:update(dt)
@@ -52,10 +55,10 @@ function GameOverState:draw()
     love.graphics.setColor({0, 0, 0, .8})
     love.graphics.rectangle('fill', 0, 0, sw, sh)
 
-    love.graphics.setColor({1, 1, 1})
     local titleFont = sn.Assets.fonts.main__64
     local titleText = 'Game Over'
     local titleW, titleH = titleFont:getWidth(titleText), titleFont:getHeight(titleText)
+    love.graphics.setColor({1, 1, 1})
     love.graphics.setFont(titleFont)
     love.graphics.print(titleText, sw / 2 - titleW / 2, sh / 2 - titleH)
 

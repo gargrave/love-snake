@@ -1,5 +1,6 @@
 return {
     Game = 'Game',
     GameOver = 'GameOver',
-    Paused = 'Paused'
+    Paused = 'Paused',
+    Title = 'Title'
 }
