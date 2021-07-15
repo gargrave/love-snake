@@ -1,9 +1,8 @@
--- TODO: move to Vector as constants
 local Move = {
-    Right = gg.Vector.new(1, 0),
-    Left = gg.Vector.new(-1, 0),
-    Up = gg.Vector.new(0, -1),
-    Down = gg.Vector.new(0, 1)
+    Right = gg.Vector.right(),
+    Left = gg.Vector.left(),
+    Up = gg.Vector.up(),
+    Down = gg.Vector.down()
 }
 
 local Colors = {

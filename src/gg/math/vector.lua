@@ -14,6 +14,26 @@ function Vector.clone(other)
     return Vector.new(other.x, other.y)
 end
 
+function Vector.zero()
+    return Vector.new(0, 0)
+end
+
+function Vector.right()
+    return Vector.new(1, 0)
+end
+
+function Vector.left()
+    return Vector.new(-1, 0)
+end
+
+function Vector.up()
+    return Vector.new(0, -1)
+end
+
+function Vector.down()
+    return Vector.new(0, 1)
+end
+
 function Vector:init(x, y)
     self:set(x, y)
 end
