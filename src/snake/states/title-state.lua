@@ -1,8 +1,10 @@
 local TitleState = {
-    machine = nil,
     menu = nil
 }
 TitleState.__index = TitleState
+setmetatable(TitleState, {
+    __index = gg.GameState
+})
 
 function TitleState.new()
     local new = setmetatable({}, TitleState)
@@ -11,6 +13,8 @@ function TitleState.new()
 end
 
 function TitleState:init()
+    gg.GameState.init(self, sn.State.Title)
+
     local menuConfig = {
         activeColor = sn.Color.Yellow,
         activeFont = sn.Assets.fonts.main__24,
@@ -20,7 +24,7 @@ function TitleState:init()
 
     local menuItems = {{
         action = function()
-            self.machine:setNextState(sn.State.Game)
+            self.machine:setNextState(sn.State.Main)
         end,
         text = 'Start Game'
     }, {
@@ -32,24 +36,24 @@ function TitleState:init()
 end
 
 function TitleState:enter(machine, prevState)
-    self.machine = machine
-    self.menu:reset()
+    gg.GameState.enter(self, machine, prevState)
 
     sn.Globals.food = nil
     sn.Globals.player = nil
     sn.Globals.grid = nil
+
+    self.menu:reset()
+    self.drawUiQueue = {self.menu}
+    self.updateQueue = {self.menu}
 end
 
-function TitleState:update(dt)
-    self.menu:update(dt)
-    gg.Input.lateUpdate(dt)
-end
-
-function TitleState:draw()
+function TitleState:drawUI()
+    -- TODO: move to TextMenu as an optional
     local sw, sh = love.graphics.getWidth(), love.graphics.getHeight()
     love.graphics.setColor({0, 0, 0, .8})
     love.graphics.rectangle('fill', 0, 0, sw, sh)
 
+    -- TODO: move to TextMenu as an optional
     local titleFont = sn.Assets.fonts.main__64
     local titleText = 'Snake!'
     local titleW, titleH = titleFont:getWidth(titleText), titleFont:getHeight(titleText)
@@ -57,12 +61,8 @@ function TitleState:draw()
     love.graphics.setFont(titleFont)
     love.graphics.print(titleText, sw / 2 - titleW / 2, sh / 2 - titleH)
 
-    self.menu:draw()
-    -- TOOD: render a simple copyright notice
-end
-
-function TitleState:is(name)
-    return name == sn.State.Title
+    -- TODO: render a simple copyright notice
+    gg.GameState.drawUI(self)
 end
 
 return TitleState

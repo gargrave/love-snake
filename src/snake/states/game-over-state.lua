@@ -1,8 +1,10 @@
 local GameOverState = {
-    machine = nil,
     menu = nil
 }
 GameOverState.__index = GameOverState
+setmetatable(GameOverState, {
+    __index = gg.GameState
+})
 
 function GameOverState.new()
     local new = setmetatable({}, GameOverState)
@@ -11,6 +13,8 @@ function GameOverState.new()
 end
 
 function GameOverState:init()
+    gg.GameState.init(self, sn.State.GameOver)
+
     local menuConfig = {
         activeColor = sn.Color.Yellow,
         activeFont = sn.Assets.fonts.main__24,
@@ -20,7 +24,7 @@ function GameOverState:init()
 
     local menuItems = {{
         action = function()
-            self.machine:setNextState(sn.State.Game)
+            self.machine:setNextState(sn.State.Main)
         end,
         text = 'New Game'
     }, {
@@ -37,24 +41,21 @@ function GameOverState:init()
 end
 
 function GameOverState:enter(machine, prevState)
-    self.machine = machine
+    gg.GameState.enter(self, machine, prevState)
+
     self.menu:reset()
+    self.drawQueue = {sn.Globals.food, sn.Globals.player, sn.Globals.grid}
+    self.drawUiQueue = {self.menu}
+    self.updateQueue = {self.menu}
 end
 
-function GameOverState:update(dt)
-    self.menu:update(dt)
-    gg.Input.lateUpdate(dt)
-end
-
-function GameOverState:draw()
-    sn.Globals.food:draw()
-    sn.Globals.player:draw()
-    sn.Globals.grid:draw()
-
+function GameOverState:drawUI()
+    -- TODO: move to TextMenu as an optional
     local sw, sh = love.window.getMode()
     love.graphics.setColor({0, 0, 0, .8})
     love.graphics.rectangle('fill', 0, 0, sw, sh)
 
+    -- TODO: move to TextMenu as an optional
     local titleFont = sn.Assets.fonts.main__64
     local titleText = 'Game Over'
     local titleW, titleH = titleFont:getWidth(titleText), titleFont:getHeight(titleText)
@@ -62,11 +63,7 @@ function GameOverState:draw()
     love.graphics.setFont(titleFont)
     love.graphics.print(titleText, sw / 2 - titleW / 2, sh / 2 - titleH)
 
-    self.menu:draw()
-end
-
-function GameOverState:is(name)
-    return name == sn.State.GameOver
+    gg.GameState.drawUI(self)
 end
 
 return GameOverState

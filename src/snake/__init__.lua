@@ -4,9 +4,9 @@ Assets.load()
 sn = {
     Assets = Assets,
 
-    Color = require('src.snake.config.color'),
+    Color = require('src.snake.config.colors'),
     Globals = require('src.snake.config.globals'),
-    State = require('src.snake.config.game-state'),
+    State = require('src.snake.config.game-states'),
     InputMap = require('src.snake.config.input-map'),
 
     Food = require('src.snake.entities.food'),
@@ -14,7 +14,7 @@ sn = {
     Player = require('src.snake.entities.player'),
 
     GameOverState = require('src.snake.states.game-over-state'),
-    GameState = require('src.snake.states.game-state'),
+    MainState = require('src.snake.states.main-state'),
     PausedState = require('src.snake.states.paused-state'),
     TitleState = require('src.snake.states.title-state')
 }

@@ -5,8 +5,8 @@ local stateMachine = nil
 
 function love.load()
     stateMachine = gg.StateMachine.new({
-        [sn.State.Game] = sn.GameState.new(),
         [sn.State.GameOver] = sn.GameOverState.new(),
+        [sn.State.Main] = sn.MainState.new(),
         [sn.State.Paused] = sn.PausedState.new(),
         [sn.State.Title] = sn.TitleState.new()
     })

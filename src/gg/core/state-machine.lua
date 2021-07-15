@@ -1,6 +1,7 @@
 local StateMachine = {
     currentState = nil,
-    nextState = nil
+    nextState = nil,
+    stateMap = {}
 }
 StateMachine.__index = StateMachine
 
@@ -30,7 +31,7 @@ end
 
 function StateMachine:processStateChanges()
     if self.currentState and self.currentState.exit then
-        self.currentState:exit()
+        self.currentState:exit(self.nextState)
     end
 
     if self.nextState then

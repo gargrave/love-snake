@@ -1,8 +1,10 @@
 local PausedState = {
-    machine = nil,
     menu = nil
 }
 PausedState.__index = PausedState
+setmetatable(PausedState, {
+    __index = gg.GameState
+})
 
 function PausedState.new()
     local new = setmetatable({}, PausedState)
@@ -11,6 +13,8 @@ function PausedState.new()
 end
 
 function PausedState:init()
+    gg.GameState.init(self, sn.State.Paused)
+
     local menuConfig = {
         activeColor = sn.Color.Yellow,
         activeFont = sn.Assets.fonts.main__24,
@@ -20,7 +24,7 @@ function PausedState:init()
 
     local menuItems = {{
         action = function()
-            self:unpause()
+            self.machine:setNextState(sn.State.Main)
         end,
         text = 'Return to Game'
     }, {
@@ -37,33 +41,28 @@ function PausedState:init()
 end
 
 function PausedState:enter(machine, prevState)
-    self.machine = machine
+    gg.GameState.enter(self, machine, prevState)
+
     self.menu:reset()
+    self.drawQueue = {sn.Globals.food, sn.Globals.player, sn.Globals.grid}
+    self.drawUiQueue = {self.menu}
+    self.updateQueue = {self.menu}
 end
 
-function PausedState:unpause()
-    self.machine:setNextState(sn.State.Game)
-end
-
-function PausedState:update(dt)
+function PausedState:lateUpdate(dt)
     if gg.Input.wasPressed(sn.InputMap.Pause) then
-        self:unpause()
-    else
-        self.menu:update(dt)
+        self.machine:setNextState(sn.State.Main)
     end
-
-    gg.Input.lateUpdate(dt)
+    gg.GameState.lateUpdate(self, dt)
 end
 
-function PausedState:draw()
-    sn.Globals.food:draw()
-    sn.Globals.player:draw()
-    sn.Globals.grid:draw()
-
+function PausedState:drawUI()
+    -- TODO: move to TextMenu as an optional
     local sw, sh = love.graphics.getWidth(), love.graphics.getHeight()
     love.graphics.setColor({0, 0, 0, .8})
     love.graphics.rectangle('fill', 0, 0, sw, sh)
 
+    -- TODO: move to TextMenu as an optional
     local titleFont = sn.Assets.fonts.main__64
     local titleText = 'Paused'
     local titleW, titleH = titleFont:getWidth(titleText), titleFont:getHeight(titleText)
@@ -71,11 +70,7 @@ function PausedState:draw()
     love.graphics.setFont(titleFont)
     love.graphics.print(titleText, sw / 2 - titleW / 2, sh / 2 - titleH)
 
-    self.menu:draw()
-end
-
-function PausedState:is(name)
-    return name == sn.State.Paused
+    gg.GameState.drawUI(self)
 end
 
 return PausedState
