@@ -1,3 +1,4 @@
+-- TODO: move to Vector as constants
 local Move = {
     Right = gg.Vector.new(1, 0),
     Left = gg.Vector.new(-1, 0),
@@ -13,7 +14,6 @@ local Colors = {
 local moveIncrement = .18
 
 local Player = {
-    bounds = nil,
     head = gg.Vector.new(3, 0),
     lastMoveTime = 0,
     lastMoveDir = Move.Right,
@@ -23,6 +23,9 @@ local Player = {
     tail = {}
 }
 Player.__index = Player
+setmetatable(Player, {
+    __index = gg.Entity
+})
 
 function Player.new()
     local new = setmetatable({}, Player)

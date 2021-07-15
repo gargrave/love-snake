@@ -1,4 +1,5 @@
 gg = {
+    Entity = require('src.gg.core.entity'),
     Input = require('src.gg.core.input'),
     StateMachine = require('src.gg.core.state-machine'),
 

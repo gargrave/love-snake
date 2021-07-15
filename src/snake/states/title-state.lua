@@ -58,6 +58,7 @@ function TitleState:draw()
     love.graphics.print(titleText, sw / 2 - titleW / 2, sh / 2 - titleH)
 
     self.menu:draw()
+    -- TOOD: render a simple copyright notice
 end
 
 function TitleState:is(name)

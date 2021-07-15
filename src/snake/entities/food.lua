@@ -1,8 +1,8 @@
-local Food = {
-    bounds = gg.Rect.new(),
-    pos = gg.Vector.new()
-}
+local Food = {}
 Food.__index = Food
+setmetatable(Food, {
+    __index = gg.Entity
+})
 
 function Food.new()
     local new = setmetatable({}, Food)
