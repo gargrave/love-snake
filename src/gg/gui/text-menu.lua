@@ -5,28 +5,38 @@ local TextMenu = {
         -- activeFont,
         -- idleColor,
         -- idleFont,
-    },
-    items = {
-        -- MenuItem:
-        -- -- text
-        -- -- action (callback fn)
+        items = {
+            -- MenuItem:
+            -- -- text
+            -- -- action (callback fn)
+        },
+        -- optional title to display above the menu items
+        title = {
+            -- color,
+            -- font,
+            -- text,
+        },
+        -- optional overlay to render between the text and game entities
+        overlay = {
+            -- color,
+        }
     },
     wrapIdx
 }
 TextMenu.__index = TextMenu
 
-function TextMenu.new(config, items)
+function TextMenu.new(config)
     local new = setmetatable({}, TextMenu)
-    new:init(config, items)
+    new:init(config)
     return new
 end
 
-function TextMenu:init(config, items)
+function TextMenu:init(config)
     self.config = config
-    self.items = items
+
     -- curried fn to wrap value for selected idx
     self.wrapIdx = function(val)
-        return gg.Math.wrapNum(1, #self.items, val)
+        return gg.Math.wrapNum(1, #self.config.items, val)
     end
 end
 
@@ -44,8 +54,9 @@ function TextMenu:update(dt)
     end
     self.activeIdx = self.wrapIdx(self.activeIdx + inc)
 
+    -- call callback fn on active item when it is "selected"
     if gg.Input.wasPressed(sn.InputMap.Enter) then
-        local item = self.items[self.activeIdx]
+        local item = self.config.items[self.activeIdx]
         if item.action then
             item.action()
         end
@@ -54,8 +65,24 @@ end
 
 function TextMenu:draw()
     local sw, sh = love.window.getMode()
+    -- draw the overlay (when present)
+    local overlay = self.config.overlay
+    if overlay and overlay.color then
+        love.graphics.setColor(overlay.color)
+        love.graphics.rectangle('fill', 0, 0, sw, sh)
+    end
 
-    for idx, item in ipairs(self.items) do
+    -- draw the title (when present)
+    local title = self.config.title
+    if title and title.text then
+        local titleW, titleH = title.font:getWidth(title.text), title.font:getHeight(title.text)
+        love.graphics.setColor(title.color)
+        love.graphics.setFont(title.font)
+        love.graphics.print(title.text, sw / 2 - titleW / 2, sh / 2 - titleH)
+    end
+
+    -- draw the interactive menu items, highlighted the selected one
+    for idx, item in ipairs(self.config.items) do
         local active = idx == self.activeIdx
         local color = active and self.config.activeColor or self.config.idleColor
         local font = active and self.config.activeFont or self.config.idleFont
