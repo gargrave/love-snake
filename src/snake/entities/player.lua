@@ -10,7 +10,7 @@ local Colors = {
     Tail = {.075, .55, .075}
 }
 
-local moveIncrement = .18
+local moveIncrement = .1
 
 local Player = {
     head = gg.Vector.new(3, 0),
@@ -33,9 +33,13 @@ function Player.new()
 end
 
 function Player:init()
+    gg.Entity.init(self)
+
     self.size = sn.Globals.gridSize
     self.bounds = gg.Rect.new(32 * 3, 0, self.size, self.size)
     self.tail = {gg.Vector.new(2, 0), gg.Vector.new(1, 0), gg.Vector.new(0, 0)}
+
+    print(string.format('Player:init() with id: "%s"', self.id))
 end
 
 function Player:update(dt)
@@ -82,17 +86,25 @@ function Player:update(dt)
         local food = sn.Globals.food
         if self.bounds:overlaps(food.bounds) then
             -- TODO: increase speed
-            -- TODO: add a "fade in effect for the new segment"
+            -- TODO: add a "fade in" effect for the new segment
             local lastTail = self.tail[#self.tail]
             table.insert(self.tail, #self.tail, gg.Vector.clone(lastTail))
             food:onPlayerCollision(self)
+
+            local points = sn.Globals.score:increment()
+            sn.Globals.gameUi:spawnDriftyText({
+                text = string.format('+%i', points),
+                x = self.bounds.x,
+                y = self.bounds.y
+            })
+
+            gg.Messages.send(sn.Message.FoodPickedUp, self)
         end
     end
 end
 
 function Player:draw()
     -- draw head
-    local headDrawPos = self.head * self.size
     love.graphics.setColor(Colors.Head)
     self.bounds:draw()
 

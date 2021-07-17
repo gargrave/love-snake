@@ -57,4 +57,25 @@ function GameOverState:enter(machine, prevState)
     self.updateQueue = {self.menu}
 end
 
+function GameOverState:drawScore()
+    local sw, sh = love.graphics.getWidth(), love.graphics.getHeight()
+
+    local font = sn.Assets.fonts.main__32
+    local text = string.format('Final Score: %i', sn.Globals.score.score)
+    local textW = font:getWidth(text)
+    local textH = font:getHeight(text)
+    local tx, ty = (sw / 2) - (textW / 2), sh - textH - 8
+
+    love.graphics.setFont(font)
+    love.graphics.setColor(sn.Color.Black)
+    love.graphics.print(text, tx - 1, ty + 1)
+    love.graphics.setColor(sn.Color.White)
+    love.graphics.print(text, tx, ty)
+end
+
+function GameOverState:drawUI()
+    gg.GameState.drawUI(self)
+    self:drawScore()
+end
+
 return GameOverState

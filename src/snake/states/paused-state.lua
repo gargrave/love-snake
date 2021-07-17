@@ -51,7 +51,7 @@ function PausedState:enter(machine, prevState)
     gg.GameState.enter(self, machine, prevState)
 
     self.menu:reset()
-    self.drawQueue = {sn.Globals.food, sn.Globals.player, sn.Globals.grid}
+    self.drawQueue = {sn.Globals.food, sn.Globals.player, sn.Globals.grid, sn.Globals.gameUi}
     self.drawUiQueue = {self.menu}
     self.updateQueue = {self.menu}
 end

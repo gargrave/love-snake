@@ -30,6 +30,11 @@ function GameState:update(dt)
 end
 
 function GameState:lateUpdate(dt)
+    for _, item in ipairs(self.updateQueue) do
+        if item.lateUpdate then
+            item:lateUpdate(dt)
+        end
+    end
     Input.lateUpdate(dt)
 end
 

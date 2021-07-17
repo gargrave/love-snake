@@ -46,4 +46,8 @@ function StateMachine:setNextState(stateKey)
     self.nextState = self.stateMap[stateKey]
 end
 
+function StateMachine:currentStateIs(stateKey)
+    return self.currentState == self.stateMap[stateKey]
+end
+
 return StateMachine

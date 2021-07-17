@@ -36,7 +36,7 @@ function TextMenu:init(config)
 
     -- curried fn to wrap value for selected idx
     self.wrapIdx = function(val)
-        return gg.Math.wrapNum(1, #self.config.items, val)
+        return gg.utils.wrapNum(1, #self.config.items, val)
     end
 end
 
@@ -64,7 +64,8 @@ function TextMenu:update(dt)
 end
 
 function TextMenu:draw()
-    local sw, sh = love.window.getMode()
+    local sw, sh = love.graphics.getWidth(), love.graphics.getHeight()
+
     -- draw the overlay (when present)
     local overlay = self.config.overlay
     if overlay and overlay.color then

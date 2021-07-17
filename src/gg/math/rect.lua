@@ -27,6 +27,13 @@ function Rect:set(x, y, w, h)
     self.bottom = y + h
 end
 
+function Rect:move(dx, dy)
+    self.x = self.x + (dx or 0)
+    self.y = self.y + (dy or 0)
+    self.right = self.x + self.w
+    self.bottom = self.y + self.h
+end
+
 function Rect:overlaps(other)
     if self.x >= other.right or self.right <= other.x then
         return false

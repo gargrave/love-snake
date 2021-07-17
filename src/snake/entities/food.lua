@@ -11,7 +11,11 @@ function Food.new()
 end
 
 function Food:init()
+    gg.Entity.init(self)
+
     self:randomizePosition()
+
+    print(string.format('Food:init() with id: "%s"', self.id))
 end
 
 function Food:randomizePosition(player)
@@ -21,6 +25,7 @@ function Food:randomizePosition(player)
     local newX = love.math.random(maxX)
     local newY = love.math.random(maxY)
     -- TODO: ensure new position does not collide with player
+    -- TODO: add a "grow" animation when it moves
     self.pos:set(newX, newY)
     self.bounds:set(newX * size + offset, newY * size + offset, size - offset * 2, size - offset * 2)
 end
